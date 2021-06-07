@@ -20,5 +20,5 @@ To clean up properly the volumes containing the DB data have to be removed:
 
 # Usage 
 
-#### `$ node main.js ["Search for book title"]` 
+#### `$ node main.js "Search for book title"` 
 
