@@ -7,6 +7,8 @@ const pool = mariadb.createPool({
     connectionLimit: 5
 });
 
+const sql = "SELECT book_name, library_location FROM books LEFT JOIN libraries ON books.library_id = libraries.library_id WHERE book_name LIKE CONCAT('%', ? , '%')";
+
 
 async function run() {
     let conn;
@@ -14,8 +16,8 @@ async function run() {
 
         conn = await pool.getConnection();
         let arg = process.argv[2];
-        const rows = await conn.query("SELECT * FROM books WHERE book_name LIKE CONCAT('%', ? , '%')", [arg]);
-        console.log(rows[0].book_name, '('+rows[0].library_name+')');
+        const rows = await conn.query(sql, [arg]);
+        console.log(rows[0].book_name, '(' +rows[0].library_location+ ')');
 
     } catch (err) {
         throw err;
